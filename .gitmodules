@@ -1,0 +1,6 @@
+[submodule "libft"]
+	path = libft
+	url = https://github.com/lambda2/_42_libft.git
+[submodule "c_vector"]
+	path = c_vector
+	url = https://github.com/WeAreMuffin/c_vector.git
