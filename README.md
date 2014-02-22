@@ -1,4 +1,4 @@
 DodoServer
 ==========
 
-A simple and light webserven written in c
+A simple and light webserver written in c
