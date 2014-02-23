@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "dodo.h"
+#include "http_head.h"
+#include "http_response.h"
 
 static void			handlers_init(void)
 {
@@ -56,7 +58,7 @@ t_ddp				*get_ddp(void)
 		p->in_loop = 1;
 		memset(&p->sockaddr, 0, sizeof(p->sockaddr));
 		p->sockaddr.sin_family = AF_INET;
-		p->sockaddr.sin_port = ntohs(8080);
+		p->sockaddr.sin_port = ntohs(1219);
 		p->sockaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 		return (p);
 	}
@@ -69,9 +71,9 @@ t_ddp				*get_ddp(void)
 int					dds_loop(t_ddp *p)
 {
 	int				sockfd;
-	unsigned int	max_size;
+	unsigned int		max_size;
 	int				fork_pid;
-	char			*buffer;
+	t_http_head		*h;
 
 	printf("Ready to loop : %d\n", p->in_loop);
 	while (p->in_loop)
@@ -84,13 +86,8 @@ int					dds_loop(t_ddp *p)
 			fork_pid = fork();
 			if (fork_pid == 0)
 			{
-				buffer = ft_strnew(BUF_SIZE);
-				if (read(sockfd, buffer, BUF_SIZE) < 0)
-					perror("DDS [reading sock data]");
-				printf("Received : %s\n", buffer);
-				write(sockfd,
-					  "<h1>Hello <small>fucking</small> world ! :D</h1>\n",
-					  ft_strlen("<h1>Hello <small>fucking</small> world ! :D</h1>\n"));
+				h = parse_http_header(sockfd);
+				send_response(h, sockfd);
 				p->in_loop = 0;
 				printf("Closing...\n");
 				exit(0);
@@ -98,7 +95,10 @@ int					dds_loop(t_ddp *p)
 			close(sockfd);
 		}
 		else
+		{
+			p->in_loop = 0;
 			perror("DDS [accept]");
+		}
 	}
 	close(p->sock);
 	return (1);

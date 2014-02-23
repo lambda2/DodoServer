@@ -6,7 +6,7 @@
 #    By: aaubin <aaubin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/22 03:19:43 by aaubin            #+#    #+#              #
-#    Updated: 2014/02/22 03:19:46 by aaubin           ###   ########.fr        #
+#    Updated: 2014/02/23 01:58:29 by aaubin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,11 @@ LDFLAGS=-g
 NAME=DodoServer
 SRC=main.c\
 	handlers.c\
+	request.c\
+	file_reader.c\
 	main.c\
+	http_head.c\
+	get_next_line.c\
 	parser.c\
 	server.c
 
