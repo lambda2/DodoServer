@@ -58,7 +58,7 @@ t_ddp				*get_ddp(void)
 		p->in_loop = 1;
 		memset(&p->sockaddr, 0, sizeof(p->sockaddr));
 		p->sockaddr.sin_family = AF_INET;
-		p->sockaddr.sin_port = ntohs(1219);
+		p->sockaddr.sin_port = ntohs(1220);
 		p->sockaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 		return (p);
 	}

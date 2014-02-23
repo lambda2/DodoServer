@@ -94,26 +94,21 @@ void						send_response(t_http_head *h, int clisock)
 	{
 		r->content_l = size;
 
-
-		p_response_headers(r, clisock);
-		treat_request(h, get_ddp(), clisock);
-
-/*
 		file_fd = open(h->target, O_RDONLY);
 		if (file_fd > 0)
 		{
 			p_response_headers(r, clisock);
 			treat_request(h, get_ddp(), clisock);
-			while (get_next_line(file_fd, &buffer))
+			/*while (get_next_line(file_fd, &buffer))
 			{
 
 				printf(">>>\t\t%s\n", buffer);
 				write(clisock, ft_strjoin(buffer, "\n"), ft_strlen(buffer) + 1);
-			}
+			}*/
 		}
 		else
 			perror("[open requested file]");
-*/
+
 	}
 	else
 	{
