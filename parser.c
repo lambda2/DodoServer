@@ -13,45 +13,31 @@
 #include "dodo.h"
 #include "http_head.h"
 
-int					treat_request(t_http_head *h, t_ddp *p, int clisock)
+int					treat_request(t_http_head *h, int clisock)
 {
 	int				status;
-	int				res;
 	int				file_d;
 	int				_pipe[2];
-	char				**e;
+	char				*buffer;
 
-	res = 0;
 	file_d = open("php.log", O_CREAT, 0777);
-
 	pipe(_pipe);
 	if (fork() == 0)
 	{
-		e = (char **)ft_memalloc(sizeof(char *) * 2);
-		bzero(e, sizeof(char *) * 2);
-		e[0] = h->target;
-		close(_pipe[0]);    // close reading end in the child
-
-		dup2(_pipe[1], 1);  // send stdout to the pipe
-		dup2(file_d, 2);  // send stderr to the pipe
-
-		close(_pipe[1]);    // this descriptor is no longer needed
-
+		close(_pipe[0]);
+		dup2(_pipe[1], 1);
+		dup2(file_d, 2);
+		close(file_d);
+		close(_pipe[1]);
 		execl("/usr/bin/php", "/usr/bin/php", h->target, NULL);
 		exit(0);
 	}
 	else
 	{
 		wait(&status);
-		char *buffer = ft_strnew(1024);
-
-		close(_pipe[1]);  // close the write end of the pipe in the parent
-
+		close(_pipe[1]);
 		while (get_next_line(_pipe[0], &buffer))
-		{
 			ft_putendl_fd(buffer, clisock);
-		}
 	}
-
-	return (res);
+	return (1);
 }

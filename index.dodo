@@ -8,5 +8,12 @@ $name = "Dodo";
 	<body>
 		<h1>Ma foi, je suis un <?php echo $name ?></h1>
 		<p>On notera que c'est <b>vraiment</b> une belle page...</p>
+		<h4>Debug information</h4>
+		<pre>
+		<?php
+		var_dump($name);
+			phpinfo();
+		?>
+		</pre>
 	</body>
 </html>

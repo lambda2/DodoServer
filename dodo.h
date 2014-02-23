@@ -29,7 +29,8 @@
 # include "get_next_line.h"
 # include "http_head.h"
 
-# define BUF_SIZE	8192 /* Ca devrait etre assez pour faire un header HTTP */
+# define		BUF_SIZE		8192
+# define		SIN_PORT		1220
 
 typedef struct sockaddr_in	skad;
 typedef struct sockaddr		ska;
@@ -61,6 +62,6 @@ int					file_exists(char *path);
 /*
 ** parser
 */
-int					treat_request(t_http_head *h, t_ddp *p, int clisock);
+int					treat_request(t_http_head *h, int clisock);
 
 #endif /* DODO_H */

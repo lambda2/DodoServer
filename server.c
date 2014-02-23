@@ -30,10 +30,10 @@ void				dds_listen(t_ddp *p)
 
 	binder = listener = 0;
 	p->sock = socket(AF_INET,SOCK_STREAM,0);
-	if (p->sock >= 0) /* On a reussi a creer la sock */
+	if (p->sock >= 0)
 	{
 		binder = bind(p->sock, (ska *)&p->sockaddr, sizeof(skad));
-		if (binder >= 0) /* On a reussi a binder */
+		if (binder >= 0)
 		{
 			listener = listen(p->sock, 1);
 			if (listener < 0)
@@ -58,7 +58,7 @@ t_ddp				*get_ddp(void)
 		p->in_loop = 1;
 		memset(&p->sockaddr, 0, sizeof(p->sockaddr));
 		p->sockaddr.sin_family = AF_INET;
-		p->sockaddr.sin_port = ntohs(1220);
+		p->sockaddr.sin_port = ntohs(SIN_PORT);
 		p->sockaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 		return (p);
 	}
