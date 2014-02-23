@@ -102,11 +102,14 @@ int					dds_loop(t_ddp *p)
 	return (1);
 }
 
-int					launch_server(void)
+int					launch_server(int ac, char **av, char **env)
 {
 	t_ddp	*p;
 
 	p = get_ddp();
+	p->ac = ac;
+	p->av = av;
+	p->env = env;
 	handlers_init();
 	dds_listen(p);
 	dds_loop(p);

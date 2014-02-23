@@ -75,8 +75,7 @@ static void				p_response_headers(t_http_response *r, int s)
 	add_data(ft_strjoin(ft_itoa(r->content_l + 500), H_EOL), r);*/
 
 	add_data(H_EOF, r);
-	printf("======== RESPONSE HEADERS (%d) =======\n%s\n====================\n",
-		   r->content_l, r->content);
+	printf("\n\n%s", r->content);
 	write(s, r->content, ft_strlen(r->content));
 	bzero(r->content, ft_strlen(r->content));
 }
@@ -90,23 +89,31 @@ void						send_response(t_http_head *h, int clisock)
 
 	buffer = NULL;
 	r = create_response(h);
-	size = file_exists(ft_strjoin(".", h->target));
+	size = file_exists(h->target);
 	if (size)
 	{
 		r->content_l = size;
-		file_fd = open(ft_strjoin(".", h->target), O_RDONLY);
+
+
+		p_response_headers(r, clisock);
+		treat_request(h, get_ddp(), clisock);
+
+/*
+		file_fd = open(h->target, O_RDONLY);
 		if (file_fd > 0)
 		{
 			p_response_headers(r, clisock);
-			printf("\n-------\n\n");
+			treat_request(h, get_ddp(), clisock);
 			while (get_next_line(file_fd, &buffer))
 			{
-				printf(">>>\t\t[%s]\n", buffer);
+
+				printf(">>>\t\t%s\n", buffer);
 				write(clisock, ft_strjoin(buffer, "\n"), ft_strlen(buffer) + 1);
 			}
 		}
 		else
 			perror("[open requested file]");
+*/
 	}
 	else
 	{

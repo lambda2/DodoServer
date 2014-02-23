@@ -36,7 +36,7 @@ static void			parse_request(char *r, t_http_head *h)
 		else
 			h->type = UNKNOWN;
 		if (spli[1])
-			h->target = spli[1];
+			h->target = ft_strjoin(".", spli[1]);
 		if (spli[2])
 			h->protocol = spli[2];
 	}
@@ -95,14 +95,13 @@ t_http_head			*parse_http_header(int fd)
 			while (get_next_line(fd, &line) && out)
 			{
 				compute_info(line, h);
-				printf("<<<\t\t[%s]\n", line);
+				printf("<<<\t\t%s\n", line);
 				if (line && line[0] == '\r')
 				{
 					out = 0;
 					break;
 				}
 			}
-			printf("Header sucessfully parsed ! [request: %s]\n", h->target);
 		}
 	}
 	return (h);

@@ -1,9 +1,12 @@
+<?php
+$name = "Dodo";
+?>
 <html>
 	<head>
 		<title>Yahoooo !</title>
 	</head>
 	<body>
-		<h1>CA, c'est une bien belle page !</h1>
+		<h1>Ma foi, je suis un <?php echo $name ?></h1>
 		<p>On notera que c'est <b>vraiment</b> une belle page...</p>
 	</body>
 </html>
