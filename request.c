@@ -25,7 +25,7 @@ t_http_response			*create_response(t_http_head *h)
 		r->accept_range = "bytes";
 		r->server = "Dodo";
 		r->connexion = h->connexion;
-		r->x_pow_by = "Da Amazing Dodo Server";
+		r->x_pow_by = "Da Amazing Dodo Server. By dodo, for dodo.";
 		r->content_lang = "fr";
 		r->protocol = h->protocol;
 		r->status = 200;
@@ -49,7 +49,10 @@ static void				p_response_headers(t_http_response *r, int s)
 {
 	add_data("HTTP/1.1 ", r);
 	add_data(ft_strjoin(ft_itoa(r->status), H_SEP), r);
-	add_data(ft_strjoin("OK BRO", H_EOL), r);
+	if (r->status == 200)
+		add_data(ft_strjoin(STAT_200, H_EOL), r);
+	else
+		add_data(ft_strjoin(STAT_OTH, H_EOL), r);
 
 	add_data(ft_strjoin("Server:", H_SEP), r);
 	add_data(ft_strjoin(r->server, H_EOL), r);
@@ -72,7 +75,7 @@ static void				p_response_headers(t_http_response *r, int s)
 	add_data(ft_strjoin(ft_itoa(r->content_l + 500), H_EOL), r);*/
 
 	add_data(H_EOF, r);
-	printf("======== RESPONSE HEADERS (%d) =======\n%s\n=========================\n",
+	printf("======== RESPONSE HEADERS (%d) =======\n%s\n====================\n",
 		   r->content_l, r->content);
 	write(s, r->content, ft_strlen(r->content));
 	bzero(r->content, ft_strlen(r->content));
@@ -95,14 +98,12 @@ void						send_response(t_http_head *h, int clisock)
 		if (file_fd > 0)
 		{
 			p_response_headers(r, clisock);
-			printf("response headers sended...\nReady to send body !\n\n");
+			printf("\n-------\n\n");
 			while (get_next_line(file_fd, &buffer))
 			{
-				printf("<\t\t[%s]\n", buffer);
+				printf(">>>\t\t[%s]\n", buffer);
 				write(clisock, ft_strjoin(buffer, "\n"), ft_strlen(buffer) + 1);
 			}
-			//write(clisock, "\n\r\0", 3);
-			printf("[SENDED : '%d' -> '%d']\n", r->content_l, ft_strlen(r->content));
 		}
 		else
 			perror("[open requested file]");

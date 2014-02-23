@@ -40,6 +40,8 @@
 
 # define		WRI_H(s, e)		write(s, e, ft_strlen(e))
 # define		JN_H(a, b)		ft_strjoin(a, b)
+# define		STAT_200			"OK BRO"
+# define		STAT_OTH			"DODO DIED. YOUR FAULT. *CLAP CLAP*"
 # define		H_SEP			" "
 # define		H_EOL			"\n"
 # define		H_EOF			"\n"

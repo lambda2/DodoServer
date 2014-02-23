@@ -48,7 +48,6 @@ void					dds_listen(t_ddp *p);
 
 void					handlerExit(int sig);
 void					handlerGetOutSon(int sig);
-int					existOrNot(char* filename);
 
 /*
 ** Reader related functions

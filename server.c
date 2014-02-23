@@ -75,10 +75,8 @@ int					dds_loop(t_ddp *p)
 	int				fork_pid;
 	t_http_head		*h;
 
-	printf("Ready to loop : %d\n", p->in_loop);
 	while (p->in_loop)
 	{
-		printf("Loop starts.\n");
 		max_size = sizeof(skad *);
 		sockfd = accept(p->sock, (ska *)&p->sockaddr, &max_size);
 		if (sockfd >= 0)

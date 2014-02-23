@@ -47,7 +47,7 @@ static char			*filter(char *e)
 	int				ct;
 
 	ct = 0;
-	while (ct < ft_strlen(e))
+	while (ct < (int)ft_strlen(e))
 	{
 		if (e[ct] == '\n' || e[ct] == '\r')
 		{
@@ -95,11 +95,10 @@ t_http_head			*parse_http_header(int fd)
 			while (get_next_line(fd, &line) && out)
 			{
 				compute_info(line, h);
-				printf(">\t\t[%s]\n", line);
+				printf("<<<\t\t[%s]\n", line);
 				if (line && line[0] == '\r')
 				{
 					out = 0;
-					printf(">\t\t<<<<<\n");
 					break;
 				}
 			}

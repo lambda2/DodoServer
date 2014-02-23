@@ -17,30 +17,13 @@ void		handlerExit(int sig)
 	t_ddp	*p;
 
 	p = get_ddp();
-	// INTERRUPTION
+	(void)sig;
 	close(p->sock);
 	exit(0);
 }
 
 void		handlerGetOutSon(int sig)
 {
+	(void)sig;
 	wait(0);
-}
-
-int			existOrNot(char* filename)
-{
-	int		res;
-	FILE*	pt_file;
-
-	res = -1;
-	if (pt_file = fopen(filename,"rw+"))
-	{
-		res = 0;
-		fclose(pt_file);
-	}
-	else
-	{
-		res=1;
-	}
-	return (res);
 }
